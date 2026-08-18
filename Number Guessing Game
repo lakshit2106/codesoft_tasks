@@ -1,0 +1,95 @@
+import java.util.Random;
+import java.util.Scanner;
+public class num_Guass {
+    public static void main(String[] args) {
+        Scanner input  = new Scanner(System.in);
+        Random random = new Random();
+
+        //Settings of game
+        final int lower_bound = 1;
+        final int upper_bound = 100;
+        final int max_attempts =  7;
+        //
+        int total_rounds = 0;
+        int round_won = 0;
+        int total_score = 0;
+        System.out.println("*********************************************************");
+        System.out.println("*********************************************************");
+        System.out.println("              Welcome number guass game                  ");
+        System.out.println("*********************************************************");
+        System.out.println("*********************************************************");
+        boolean play_again = true;
+        while(play_again){
+            total_rounds++;
+            int secret_num = random.nextInt(upper_bound-lower_bound+1)+lower_bound;
+            int attempts_taken = 0;
+            boolean has_won = false;
+            System.out.println("\n --- Round " + total_rounds +"---");
+            System.out.println("I guess a number between " + lower_bound + " to" + upper_bound);
+            System.out.println("You have " + max_attempts+" to guass the number " );
+            while(attempts_taken < max_attempts){
+                int attempt_number = attempts_taken+1;
+                System.out.println("[ Attempts " + attempt_number+ "/"+ max_attempts + "] Please enter your number  ");
+                if (!input.hasNextInt()) {
+                    System.out.println(" Invalid input ! Please enter a valid integer number ");
+                    input.next();
+                    continue;
+                    
+                }
+                int user_guest  = input.nextInt();
+                if(user_guest<lower_bound|| user_guest>upper_bound){
+                    System.out.println("Number are between"  + lower_bound+" and " + upper_bound);
+                    continue;
+                }
+                attempts_taken++;
+                if (user_guest==secret_num) {
+                    System.out.println("Congrulation you find right answer in "+ attempts_taken+" attempts ");
+                    has_won = true;
+
+                }
+                else if (user_guest<secret_num) {
+                    System.out.println("Small number  (Please enter a big number)");
+                    
+                }
+                else{
+                    System.out.println("Big number (Please enter a small number)");
+                }
+                int remaining_Attempts = max_attempts-attempts_taken;
+                if(remaining_Attempts>0){
+                    System.out.println("Remaining attempts " + remaining_Attempts + " ");
+
+                }
+            }
+            if (has_won) {
+                round_won++;
+                int round_Score = 100 - ((attempts_taken - 1) * 10);
+                 total_score += round_Score;
+                System.out.println("Round Score: +" + round_Score + " points");
+
+            }
+            else {
+                System.out.println("\n💥 Game Over! ");
+                System.out.println("RIght number is : **" + secret_num + "**");
+                System.out.println("Round Score: +0 points");
+            }
+            System.out.print("\nAre you ready anoter round (y/n): ");
+            char choice = input.next().toLowerCase().charAt(0);
+            if (choice != 'y') {
+                play_again = false;
+            }
+
+        }
+         System.out.println("\n=============================================");
+        System.out.println(" FINAL GAME STATS");
+        System.out.println("=============================================");
+        System.out.println("• Total rounds played : " + total_rounds);
+        System.out.println("• Rounds won          : " + round_won);
+        double winRate = ((double) round_won / total_rounds) * 100;
+        System.out.printf("• Win rate            : %.1f%%\n", winRate);
+        System.out.println("• Total score         : " + total_score + " pts");
+        System.out.println("=============================================");
+        System.out.println("Thanks for playing ! ");
+    }
+
+    
+}
