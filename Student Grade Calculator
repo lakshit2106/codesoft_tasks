@@ -1,0 +1,48 @@
+import java.util.Scanner;
+public class student_Num_Grade {
+    public static void main(String[] args) {
+        Scanner input  = new Scanner(System.in);
+        System.out.println("-----------------------------------------");
+        System.out.println("Welcome to Student grade calculator : ");
+        System.out.print("Please enter the no of sublect : ");
+        int no_of_Sub = input.nextInt();
+        if (no_of_Sub>0) {
+            System.out.println("Please enter atleaset one subject : ");
+           
+            
+        }
+        double total_Marks = 0;
+        for (int i = 1; i < no_of_Sub; i++) {
+            System.out.println("Please enter " + i+" subject marks b/w 1 to 100");
+            double marks = input.nextDouble();
+             while (marks< 0 || marks>100) { 
+                System.out.println("Invalid number please enter number b/w 1 to 100");
+                marks = input.nextDouble();
+
+             }
+             total_Marks = total_Marks+marks;
+
+        }
+        double average_Percentage = total_Marks / no_of_Sub;
+        String grade;
+        if (average_Percentage >= 90) {
+            grade = "A+";
+        } else if (average_Percentage >= 80) {
+            grade = "A";
+        } else if (average_Percentage >= 70) {
+            grade = "B";
+        } else if (average_Percentage >= 60) {
+            grade = "C";
+        } else if (average_Percentage >= 50) {
+            grade = "D";
+        } else {
+            grade = "F (Fail)";
+        }
+        System.out.println("\n================= (Results) =================");
+        System.out.println("कुल अंक (Total Marks)        : " + total_Marks+ " / " + (no_of_Sub * 100));
+        System.out.printf("(Percentage)     : %.2f%%\n", average_Percentage);
+        System.out.println(" (Grade)                 : " + grade);
+        System.out.println("====================================================");
+       
+    }
+}
